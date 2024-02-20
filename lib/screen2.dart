@@ -34,7 +34,8 @@ class _Screen2State extends State<Screen2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('API Data Fetching'),
+        title: Text('Screen 2'),
+        centerTitle: true,
       ),
       body: _isLoading
           ? Center(
@@ -45,7 +46,7 @@ class _Screen2State extends State<Screen2> {
         itemBuilder: (context, index) {
           final post = _posts[index];
           return Container(
-            margin: EdgeInsets.symmetric(vertical: 6.0, horizontal:  8.0), // Add margin to each tile on all sides
+            margin: EdgeInsets.symmetric(vertical: 6.0, horizontal:  20.0), // Add margin to each tile on all sides
             decoration: BoxDecoration(
               color: Color(0xFFE3F2FD), // Set background color of tile
               borderRadius: BorderRadius.circular(8.0), // Optional: Add border radius for rounded corners

@@ -55,34 +55,46 @@ class _Screen1State extends State<Screen1> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Screen 1'),
+        centerTitle: true,
       ),
       body: Center(
         child: _loading
             ? CircularProgressIndicator()
-            : _mediaData != null
-            ? Column(
+            : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_mediaData['url'].endsWith('.mp4'))
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 2,
-                child: VideoWidget(videoUrl: _mediaData['url']),
-              )
-            else
-              Image.network(
-                _mediaData['url'],
-                height: MediaQuery.of(context).size.height / 2,
-              ),
-            FloatingActionButton(
-              onPressed: () {
-                _saveMediaToLocalDB(_mediaData);
-                _navigateToScreen2();
+            _mediaData != null
+                ? _mediaData['url'].endsWith('.mp4')
+                ? SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: VideoWidget(videoUrl: _mediaData['url']),
+            )
+                : Image.network(
+              _mediaData['url'],
+              height: MediaQuery.of(context).size.height / 2,
+              loadingBuilder: (context, child, progress) {
+                return progress == null
+                    ? child
+                    : CircularProgressIndicator();
               },
-              child: Icon(Icons.save),
+            )
+                : Text('Failed to load media'),
+            SizedBox(height: 16), // Add margin below media
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0), // Add margin to button
+                child: FloatingActionButton(
+                  onPressed: () {
+                    _saveMediaToLocalDB(_mediaData);
+                    _navigateToScreen2();
+                  },
+                  child: Icon(Icons.arrow_right),
+                ),
+              ),
             ),
           ],
-        )
-            : Text('Failed to load media'),
+        ),
       ),
     );
   }
