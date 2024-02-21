@@ -1,3 +1,4 @@
+//video_state.dart
 part of 'video_bloc.dart';
 
 sealed class VideoState extends Equatable {

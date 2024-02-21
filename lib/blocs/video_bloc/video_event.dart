@@ -1,3 +1,4 @@
+//video_event.dart
 part of 'video_bloc.dart';
 
 sealed class VideoEvent extends Equatable {
